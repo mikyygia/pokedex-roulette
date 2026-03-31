@@ -1,6 +1,6 @@
 import './App.css'
 import { useState } from "react";
-import ModifyFilters from './components/ModifyFilters'
+import BannedFilters from './components/BannedFilters';
 import Randomize from './components/Randomize'
 import Saved from './components/Saved'
 import ShowPokemon from './components/ShowPokemon'
@@ -8,6 +8,7 @@ import ShowPokemon from './components/ShowPokemon'
 function App() {
     const [currentPokemon, setCurrentPokemon] = useState({});
     const [loading, setLoading] = useState(false);
+    const [banList, setBanList] = useState([]);
 
     const getRandomPokemon = async () => {
         const randomId = Math.floor(Math.random() * 1026);
@@ -23,21 +24,27 @@ function App() {
         } finally {
             setLoading(false);
         }
-
-        console.log("sent");
     }
-  
+
+    const onSetBanList = (type) => {
+      // console.log(banList);
+      if (!banList.includes(type)) {
+        setBanList([...banList, type]);
+      }
+    }
 
   return (
     <div className="container">
       <div className="info-section">
-        <ModifyFilters />
+        <h1>discover your pokemon</h1>
+        <BannedFilters bannedTypes={banList}/>
+        {/* <p> ur mama: {banList}</p> */}
         <Randomize onFetch={getRandomPokemon}/>
         <Saved />
       </div>
     
       <div className="display-section">
-        <ShowPokemon state={loading} data={currentPokemon}/>
+        <ShowPokemon state={loading} data={currentPokemon} bannedType={banList} setBannedType={onSetBanList}/>
       </div>
     </div>
   )

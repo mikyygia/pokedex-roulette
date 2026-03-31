@@ -1,17 +1,6 @@
 :root {
     --light: #FFF7E6;
     --dark: #2B323F;
-    --red: #53161d;
-}
-
-.api-filters {
-    display: flex;
-    gap: 5px;
-    margin-top: 16px;
-}
-
-.api-filters div {
-    flex: 1;
 }
 
 button {
@@ -19,6 +8,7 @@ button {
     background-color: var(--light);
     padding: 0.3em 0.5em;
     border: 1.5px solid black;
+    margin: 3px 2px;
 }
 
 button:hover {
@@ -46,9 +36,23 @@ hr {
     border-radius: 0;
 }
 
+.pokemon-info {
+    display: flex;
+    gap: 16px;
+}
+
 .pokemon-name {
     font-size: 32px;
     letter-spacing: 5px;
+}
+
+h4 {
+    letter-spacing: 3px;
+}
+
+h4 span {
+    letter-spacing: 2px;
+    color: var(--light);
 }
 
 .pokemon-img {
@@ -63,9 +67,19 @@ hr {
     padding: 6px 18px;
 }
 
-.pokemon-save-btn:hover {
+.pokemon-save-btn:hover, .filter-option:hover {
     background-color: var(--light);
     color: black;
     text-decoration: underline;
     scale: 1.1;
+}
+
+.filter-option {
+    margin-right: 6px;
+    padding: 6px 16px;
+}
+
+.banned-filters {
+    margin-top: 16px;
+    display: flex;
 }
