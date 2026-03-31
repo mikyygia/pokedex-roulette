@@ -1,6 +1,15 @@
 import "../index.css"
+const gen = [151, 251, 386, 493, 649, 721, 809, 905, 1025];
 
-export default function ShowPokemon ({state, data, bannedType, setBannedType}) {
+export default function ShowPokemon ({state, data, banType, banGen, banWeight}) {
+    const getGenId = (id) => {
+        for (let i = 0; i < gen.length; i++) {
+            if (id <= gen[i]) {
+                return i + 1;
+            }
+        }
+    }
+
     return (
         <div>
             {
@@ -18,7 +27,7 @@ export default function ShowPokemon ({state, data, bannedType, setBannedType}) {
                                     } 
                                 alt={data.name} />
                             
-                            <button className="pokemon-save-btn">save</button>
+                            {/* <button className="pokemon-save-btn">save</button> wip feature*/}
                         </div>
 
 
@@ -27,10 +36,14 @@ export default function ShowPokemon ({state, data, bannedType, setBannedType}) {
                             {
                                 data.types.map((t, index) => {
                                     return (
-                                        <button onClick={() => setBannedType(t.type.name)} className="filter-option">{t.type.name}</button>
+                                        <button onClick={() => banType(t.type.name)} className="filter-option">{t.type.name}</button>
                                     );
                                 })
                             }
+
+                            { <button onClick={() => banGen(getGenId(data.id))} className="filter-option">generation {getGenId(data.id)}</button> }
+
+                            { <button onClick={() => banWeight(data.height)}>{data.height} kg</button> }
                         </div>
                     </div>
                 ) : (

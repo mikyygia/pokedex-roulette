@@ -1,16 +1,32 @@
 import "../index.css"
-import { useState } from "react";
 
-export default function BannedFilters ({bannedTypes}) {
+
+export default function BannedFilters ({bannedTypes, bannedGens, bannedWeight}) {
     return (
         <div className="banned-filters">
             <p>banned filters:</p>
 
             <div>
                 {
-                bannedTypes.map((ban, index) => {
+                bannedTypes.map((ban, _) => {
                     return (
                         <button>{ban} type</button>
+                    )
+                })
+                }
+
+                {
+                bannedGens.map((gen, _) => {
+                    return (
+                        <button>generation {gen}</button>
+                    )
+                })
+                }
+
+                {
+                bannedWeight.map((weight, _) => {
+                    return (
+                        <button>{weight} kg</button>
                     )
                 })
                 }

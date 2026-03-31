@@ -8,7 +8,10 @@ import ShowPokemon from './components/ShowPokemon'
 function App() {
     const [currentPokemon, setCurrentPokemon] = useState({});
     const [loading, setLoading] = useState(false);
-    const [banList, setBanList] = useState([]);
+    // types able to get banned
+    const [typeBanList, setTypeBanList] = useState([]);
+    const [genBanList, setGenBanList] = useState([]);
+    const [weightBanList, setWeightBanList] = useState([]);
 
     const getRandomPokemon = async () => {
         const randomId = Math.floor(Math.random() * 1026);
@@ -26,25 +29,49 @@ function App() {
         }
     }
 
-    const onSetBanList = (type) => {
-      // console.log(banList);
-      if (!banList.includes(type)) {
-        setBanList([...banList, type]);
+    const onSetTypeBanList = (type) => {
+      if (!typeBanList.includes(type)) { // don't add if it already exists
+        setTypeBanList([...typeBanList, type]);
       }
     }
+
+    const onSetGenBanList = (gen) => {
+      if (!genBanList.includes(gen)) { // don't add if it already exists
+        setGenBanList([...genBanList, gen]);
+      }
+    }
+
+    const onSetWeightBanList = (weight) => {
+      if (!weightBanList.includes(weight)) { // don't add if it already exists
+        setWeightBanList([...weightBanList, weight]);
+      }
+    }
+    
 
   return (
     <div className="container">
       <div className="info-section">
         <h1>discover your pokemon</h1>
-        <BannedFilters bannedTypes={banList}/>
-        {/* <p> ur mama: {banList}</p> */}
+        <BannedFilters 
+            bannedTypes={typeBanList}
+            bannedGens={genBanList}
+            bannedWeight={weightBanList}
+        />
         <Randomize onFetch={getRandomPokemon}/>
-        <Saved />
+        {/* <Saved /> */}
       </div>
     
       <div className="display-section">
-        <ShowPokemon state={loading} data={currentPokemon} bannedType={banList} setBannedType={onSetBanList}/>
+        <ShowPokemon state={loading} data={currentPokemon} 
+                // banned types
+                banType={onSetTypeBanList}
+
+                // banned generations
+                banGen={onSetGenBanList}
+
+                // banned weight (kg)
+                banWeight={onSetWeightBanList}
+        />
       </div>
     </div>
   )
